@@ -1,11 +1,39 @@
-""" Write a program that searches current working directory
-for files larger than 1MB. Every time you find such a file print
-its name to the user.
+#!/usr/bin/env python
 
-- When the program finds a large file. It should ask the user
-  a message asking if she wants to delete it, and delete the
-  file if requested
+__author__ = 'Eabel'
 
-- Take threshold and path as command line arguments
-"""
+import sys
+import os
 
+
+def Usage():
+    print ('Invalud arguments.\nUsage: 03.py [path]')
+
+
+def print_file_by_size(size, root):
+    for path, dirs, files in os.walk(root):
+        for name in files:
+            file_size = os.stat(os.path.join(path, name)).st_size
+            if file_size > size:
+                print name
+
+
+########################################################################################################################
+#
+#
+def main():
+    path  = "."
+    if len(sys.argv) > 2:
+        Usage()
+        sys.exit()
+    if len(sys.argv) > 1:
+        path = sys.argv[1]
+        if not os.path.isdir(path):
+            print Usage()   
+    size = 1024 * 1024 # 1 Megabyte
+    print_file_by_size(size,path)
+
+           
+
+if __name__ == '__main__':
+    main()
