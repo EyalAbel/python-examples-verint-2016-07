@@ -29,7 +29,6 @@ def create_dictionaries(file_path):
 #
 #
 def main():
-    path  = "."
     parser = argparse.ArgumentParser(description='This program writh lines from fine_1 and file_2 alternately into file_2')
     
     parser.add_argument("file_1", help="path to file")
