@@ -21,7 +21,6 @@ def is_valid_file_path(file_path):
 #
 #
 def main():
-    path  = "."
     parser = argparse.ArgumentParser(description='This program concatinate file_1 into file_2')
     
     parser.add_argument("file_1", help="path to file")
