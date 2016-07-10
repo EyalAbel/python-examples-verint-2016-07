@@ -38,9 +38,15 @@ def main():
 
         file1_lines = load_file(args.file_1)
         file2_lines = load_file(args.file_2)
-        with open(args.file_3, "w") as dst:        
-            file3_lines = filter(None, sum(itertools.izip_longest(file1_lines, file2_lines), ()))
-            dst.writelines(file3_lines)
+        with open(args.file_3, "w") as dst:
+            itr = itertools.izip_longest(file1_lines, file2_lines)
+            for item in itr:
+              if item[0]:            
+                dst.write(item[0])
+              if item[1]:  
+                dst.write(item[1])     
+              #file3_lines = filter(None, sum(itertools.izip_longest(file1_lines, file2_lines), ()))
+
     except:
         e = sys.exc_info()[0]
         print "Error -",e
