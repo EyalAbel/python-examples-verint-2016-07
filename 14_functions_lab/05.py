@@ -1,10 +1,20 @@
-"""
-Write a function groupby that takes a list
-and a function and returns a dictionary
-keyd by the return value of the function on the list items
+#!/usr/bin/env python
 
-For example:
-    groupby(lambda s: s[0], ['foo', 'fi', 'hello', 'hi'])
-    returns: { 'f': ['foo','fi'], 'h': ['hello', 'hi'] }
-"""
 
+__author__ = 'Eabel'
+
+import sys
+import os
+from collections import defaultdict
+
+
+def groupby(key_func,*values):
+    """
+    Returns:
+    
+        dictionary:  grouped by value of key_func(v) (for v in values)
+    """
+    d = defaultdict(list)
+    for value in values:
+        d[key_func(value)].append(value)
+    return d
