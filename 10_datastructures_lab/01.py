@@ -13,8 +13,6 @@ import socket
 from collections import defaultdict
 
 
-
-
 def is_valid_ipv4_address(address):
     try:
         socket.inet_pton(socket.AF_INET, address)
@@ -36,32 +34,26 @@ def is_valid_ipv6_address(address):
         return False
     return True
 
-def is_valid_ip(address):
+def is_valid_ip_address(address):
     return is_valid_ipv4_address or is_valid_ipv6_address(address)
-
-def is_valid_file_path(file_path):
-    if os.path.isfile(file_path):
-        return True
-    else :      
-        print "Error - invalid file path",file_path
-        return False
-
-
 
 
 def read_hosts_file(file_path):
-    if not is_valid_file_path(file_path):
-        sys.exit()
-    f = open(file_path)
-    host_dict = defaultdict(str)
-    for line in f:
-        items = line.split('=')
-        if len(items) != 2:
-            return False;
-        if not is_valid_ip(items[1]):
-            return False;
-        host_dict[items[0]] = items[1].rstrip('\r\n')
-    return host_dict
+    try:
+        f = open(file_path)
+        host_dict = defaultdict(str)
+        for line in f:
+            items = line.split('=')
+            if len(items) != 2:
+                return False;
+            if not is_valid_ip_address(items[1]):
+                return False
+            host_dict[items[0]] = items[1].rstrip('\r\n')
+        return host_dict
+    except:
+        e = sys.exc_info()[0]
+        print "Error loading hosts file -",e
+        return False
 
 def get_ip(machine,host_dict):
     ip = host_dict[machine];
