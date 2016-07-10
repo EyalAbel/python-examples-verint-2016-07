@@ -12,25 +12,14 @@ import argparse
 from collections import defaultdict
 
 
-
-
-
-def is_valid_file_path(file_path):
-    if os.path.isfile(file_path):
-        return True
-    else :      
-        print "Error - invalid file path",file_path
-        return False
-
-
-
-
 def load_words_file(file_path):
-    if not is_valid_file_path(file_path):
-        sys.exit()
-    with open(file_path) as f:
-        for word in f:
-            yield word.rstrip()
+    try:
+        with open(file_path) as f:
+            for word in f:
+                yield word.rstrip()
+    except:
+        e = sys.exc_info()[0]
+        print "Error loading file -",e
 
 def get_anagrams(words):
     d = defaultdict(list)
