@@ -10,12 +10,7 @@ import sys
 import os
 import argparse
 
-def is_valid_file_path(file_path):
-    if os.path.isfile(file_path):
-        return True
-    else :      
-        print "Error - invalid file path",file_path
-        return False
+
 
 ########################################################################################################################
 #
@@ -26,12 +21,15 @@ def main():
     parser.add_argument("file_1", help="path to file")
     parser.add_argument("file_2", help="path to file")    
     args = parser.parse_args()
-    if not is_valid_file_path(args.file_1) or not is_valid_file_path(args.file_2):
-        sys.exit()
 
-    with open(args.file_1, "r") as src:
-        with open(args.file_2, "a") as dst:
-            dst.write(src.read())
+    try:     
+        with open(args.file_1, "r") as src:
+            with open(args.file_2, "a") as dst:
+                for line in src:
+                    dst.write(line)
+    except:
+        e = sys.exc_info()[0]
+        print "Error -",e
         
         
 
